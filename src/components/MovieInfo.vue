@@ -1,5 +1,5 @@
 <template>
-  <div class="movie-info-container" :class="{'active': currentMovie.title != ''}">
+  <div class="movie-info-container">
     <div class="movie-backdrop lazyload" :data-bg="backdropPath">
       <div class="backdrop-inner">
         <span class="close-movie-panel" @click="resetCurrentMovie">&times;</span>
@@ -22,7 +22,6 @@
       </p>
       <p>{{ currentMovie.overview }}</p>
     </div>
-
   </div>
 </template>
 
@@ -64,25 +63,23 @@
 </script>
 
 <style lang="scss">
-$easeOutCubic: cubic-bezier(0.215, 0.61, 0.355, 1);
+@import "./src/assets/styles/variables";
 
-.movie-info-container {
+.movie-enter-active, .movie-leave-active {
   transition: all 250ms $easeOutCubic;
+}
+.movie-enter, .movie-leave-active {
+  opacity: 0;
+  transform: scale(1.2);
+}
+.movie-info-container {
   background: #1D262F;
   color: #fff;
   height: 100%;
   position: fixed; top: 0; right: 0; bottom: 0; left: 0;
   z-index: 99;
   overflow: auto;
-  transform: scale(1.2);
-  opacity: 0;
-  pointer-events: none;
   -webkit-overflow-scrolling: touch;
-  &.active {
-    transform: scale(1);
-    opacity: 1;
-    pointer-events: auto;
-  }
   .movie-backdrop {
     height: 36vh;
     background-size: cover!important;
